@@ -1,7 +1,7 @@
 package arrays;
 
 public class Vetor {
-
+//mudei aqui
 	private Object list[];
 	private int capacity;
 	private int size;

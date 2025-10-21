@@ -13,6 +13,9 @@ public class Vetor {
 		this.size = 0;
 	}
 	
+	// capacity[10] = elemento 1, elemento 2, elemento 3... elemento 10;
+	// size[9]: elements[0]= elemento 1... elements[9] = elemento 10;
+	
 	public boolean add(Object elem) {
 		if (this.size < this.capacity) {
 			this.elements[this.size] = elem;
@@ -23,10 +26,50 @@ public class Vetor {
 		return false;
 	}
 	
+	public void add(Object elem, int index) {
+		if (!(index >= 0 && index < this.size)) {
+			throw new IllegalArgumentException("Invalid Position");
+		}
+		
+		if (index >= 0 && index < capacity) {
+			this.elements[index] = elem;
+		}
+	}
+	
 	public int size() {
 		return this.size;
 	}
 
+	public Object getElem(int index) {
+		if (!(index >= 0 && index < this.size)) {
+			throw new IllegalArgumentException("Invalid Position");
+		}
+		return this.elements[index];
+	}
+	
+	public int exist(Object elem) {
+		for (int i = 0; i < this.size; i++) {
+			if (elem == this.elements[i]) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+//	public boolean exist(Object elem) {
+//		for (int i = 0; i < this.size; i++) {
+//			if (elem == this.elements[i]) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
+	
+	public boolean isEmpty() {
+		if (size == 0) {
+			return true;
+		} return false;
+	}
 	@Override
 	public String toString() {
 		

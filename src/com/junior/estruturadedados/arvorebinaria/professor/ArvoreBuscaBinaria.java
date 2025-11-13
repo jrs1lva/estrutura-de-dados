@@ -31,4 +31,53 @@ public class ArvoreBuscaBinaria {
 		raiz = insertRecursivo(valor, raiz);
 	}
 	
+	private void printPreOrdem(NoBinario no) {
+		if (no != null) {
+			System.out.println(no.getElement());
+			printPreOrdem(no.getLeft());
+			printPreOrdem(no.getRight());
+		}
+	}
+	
+	private void printEmOrdem(NoBinario no) {
+		if (no != null) {
+			printEmOrdem(no.getLeft());
+			System.out.println(no.getElement());
+			printEmOrdem(no.getRight());
+		}
+	}
+	
+	private void printPosOrdem(NoBinario no) {
+		if (no != null) {
+			printPosOrdem(no.getLeft());
+			printPosOrdem(no.getRight());
+			System.out.println(no.getElement());
+		}
+	}
+	
+	public void print() {
+		if (isEmpty()) {
+			System.out.println("Árvore vazia");
+		} else {
+			printPosOrdem(raiz);
+		}
+	}
+	
+	private NoBinario find(int valor, NoBinario no) {
+		if (no == null) {
+			return null;
+		}
+		
+		else if (valor > no.getElement()) {
+			return find(valor, no.getRight());
+		} else if (valor < no.getElement()) {
+			return find(valor, no.getLeft());
+		} else {
+			return no;
+		}
+	}
+	
+	public boolean find(int valor) {
+		return find(valor,raiz) != null ? true:false; 
+	}
 }

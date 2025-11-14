@@ -80,4 +80,35 @@ public class ArvoreBuscaBinaria {
 	public boolean find(int valor) {
 		return find(valor,raiz) != null ? true:false; 
 	}
+	
+	private NoBinario findMin(NoBinario no) {
+		if (no == null) {
+			return null;
+		} else if (no.getLeft() == null) {
+			return no;
+		} return findMin(no);
+	}
+	
+	public int findMin() throws EmptyTreeException {
+		if (isEmpty()) {
+			throw new EmptyTreeException();
+		}
+		return findMin(raiz).getElement();
+	}
+	
+	private NoBinario findMax(NoBinario no) {
+		if (no == null) {
+			return null;
+		} else if (no.getRight() == null) {
+			return no;
+		} return findMax(no.getRight());
+	}
+	
+	public int findMax() throws EmptyTreeException {
+		if (isEmpty()) {
+			throw new EmptyTreeException();
+		}
+		return findMax(raiz).getElement();
+	}
+	
 }

@@ -1,88 +1,124 @@
 package com.junior.estruturadedados.vetor;
 
-import java.util.Arrays;
-
 public class Vetor {
-	private Object[] elements;
-	private int size;
-	private int capacity;
-	
-	public Vetor(int capacity) {
-		this.elements = new Object[capacity];
-		this.capacity = capacity;
-		this.size = 0;
+
+	private String[] elementos; 
+	private int tamanho;
+
+	public Vetor(int capacidade){
+		this.elementos = new String[capacidade];
+		this.tamanho = 0;
 	}
-	
-	// capacity[10] = elemento 1, elemento 2, elemento 3... elemento 10;
-	// size[9]: elements[0]= elemento 1... elements[9] = elemento 10;
-	
-	public boolean add(Object elem) {
-		if (this.size < this.capacity) {
-			this.elements[this.size] = elem;
-			this.size ++;
-			return true;
+
+	/*public void adiciona(String elemento){
+		for (int i=0; i<this.elementos.length; i++){
+			if (this.elementos[i] == null){
+				this.elementos[i] = elemento;
+				break;
+			}
 		}
-		
+	}*/
+
+	/*public void adiciona(String elemento) throws Exception{
+
+		if (this.tamanho < this.elementos.length){
+			this.elementos[this.tamanho] = elemento;
+			this.tamanho++;
+		} else {
+			throw new Exception("Vetor já está cheio, não é possível adicionar mais elementos");
+		}
+
+	}*/
+
+	public boolean adiciona(String elemento) {
+		this.aumentaCapacidade();
+		if (this.tamanho < this.elementos.length){
+			this.elementos[this.tamanho] = elemento;
+			this.tamanho++;
+			return true;
+		} 
 		return false;
 	}
 	
-	public void add(Object elem, int index) {
-		if (!(index >= 0 && index < this.size)) {
-			throw new IllegalArgumentException("Invalid Position");
+	// 0 1 2 3 4 5 6 = tamanho é 5
+	// B C E F G + +
+	//
+	public boolean adiciona(int posicao, String elemento){
+		
+		if (!(posicao >= 0 && posicao < tamanho)){
+			throw new IllegalArgumentException("Posição inválida");
 		}
 		
-		if (index >= 0 && index < capacity) {
-			this.elements[index] = elem;
+		this.aumentaCapacidade();
+		
+		//mover todos os elementos
+		for (int i=this.tamanho-1; i>=posicao; i--){
+			this.elementos[i+1] = this.elementos[i];
+		}
+		this.elementos[posicao] = elemento;
+		this.tamanho++;
+		
+		return true;
+	}
+	
+	private void aumentaCapacidade(){
+		if (this.tamanho == this.elementos.length){
+			String[] elementosNovos = new String[this.elementos.length * 2];
+			for (int i=0; i<this.elementos.length; i++){
+				elementosNovos[i] = this.elementos[i];
+			}
+			this.elementos = elementosNovos;
 		}
 	}
 	
-	public int size() {
-		return this.size;
-	}
-
-	public Object getElem(int index) {
-		if (!(index >= 0 && index < this.size)) {
-			throw new IllegalArgumentException("Invalid Position");
-		}
-		return this.elements[index];
+	public String busca(int posicao){
+		if (!(posicao >= 0 && posicao < tamanho)){
+			throw new IllegalArgumentException("Posição inválida");
+		} 
+		return this.elementos[posicao];
 	}
 	
-	public int exist(Object elem) {
-		for (int i = 0; i < this.size; i++) {
-			if (elem == this.elements[i]) {
+	public int busca(String elemento){
+		for (int i=0; i<this.tamanho; i++){
+			if (this.elementos[i].equals(elemento)){
 				return i;
 			}
 		}
 		return -1;
 	}
-	
-//	public boolean exist(Object elem) {
-//		for (int i = 0; i < this.size; i++) {
-//			if (elem == this.elements[i]) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
-	
-	public boolean isEmpty() {
-		if (size == 0) {
-			return true;
-		} return false;
+	//
+	// B D E F F -> posição a ser removida é 1 (G)
+	// 0 1 2 3 4 -> tamanho é 5
+	// vetor[1] = vetor[2]
+	// vetor[2] = vetor[3]
+	// vetor[3] = vetor[4]
+	public void remove(int posicao){
+		if (!(posicao >= 0 && posicao < tamanho)){
+			throw new IllegalArgumentException("Posição inválida");
+		}
+		for (int i=posicao; i<this.tamanho-1; i++){
+			this.elementos[i] = this.elementos[i+1];
+		}
+		this.tamanho--;
 	}
+	
+	public int tamanho(){
+		return this.tamanho;
+	}
+
 	@Override
 	public String toString() {
 		
 		StringBuilder s = new StringBuilder();
 		s.append("[");
 		
-		for (int i = 0; i < size-1; i++) {
-			s.append(elements[i]);
-			s.append(" | ");
+		for (int i=0; i<this.tamanho-1; i++){
+			s.append(this.elementos[i]);
+			s.append(", ");
 		}
 		
-		if (this.size > 0) {
-			s.append(this.elements[size-1]);
+		if (this.tamanho>0){
+			s.append(this.elementos[this.tamanho-1]);
 		}
 		
 		s.append("]");
@@ -90,23 +126,4 @@ public class Vetor {
 		return s.toString();
 	}
 	
-	
-	
-//	public void add(Object elem) throws Exception {
-//		if (this.size < this.capacity) {
-//			this.elements[this.size] = elem;
-//			this.size ++;
-//		} else {
-//			throw new Exception("Limite de elementos atingido!");
-//		}	
-//	}
-	
-//	public void addBurro (Object elem) {
-//		for (int i = 0; i < elements.length; i++) {
-//			if (this.elements[i] == null) {
-//				this.elements[i] = elem;
-//				break;
-//			}
-//		}
-//	}
 }

@@ -10,9 +10,9 @@ public class Aula05 {
 		vetor.add(6);
 		vetor.add("Noah");
 		
-		System.out.println(vetor.getElem(1));
-		System.out.println(vetor.getElem(0));
-		System.out.println(vetor.getElem(3));
+		System.out.println(vetor.busca(1));
+		System.out.println(vetor.busca(0));
+		System.out.println(vetor.busca(3));
 	}
 
 }

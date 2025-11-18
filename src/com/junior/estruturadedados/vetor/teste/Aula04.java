@@ -10,7 +10,7 @@ public class Aula04 {
 		vetor.add(3);
 		vetor.add("Noah");
 		
-		System.out.println(vetor.size());
+		System.out.println(vetor.tamanho());
 		System.out.println(vetor);
 		
 	}

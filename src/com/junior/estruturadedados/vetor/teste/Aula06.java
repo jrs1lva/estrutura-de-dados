@@ -10,8 +10,8 @@ public class Aula06 {
 		vetor.add(6);
 		vetor.add("Noah");
 		
-		System.out.println(vetor.exist("Noah"));
-		System.out.println(vetor.exist("elementos"));
+		System.out.println(vetor.busca("Noah"));
+		System.out.println(vetor.busca("elementos"));
 	}
 
 }
